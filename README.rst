@@ -7,7 +7,10 @@ MQTT-PWN
 .. image:: https://img.shields.io/github/license/akamai-threat-research/mqtt-pwn.svg
    :target: https://github.com/akamai-threat-research/mqtt-pwn/blob/master/LICENSE
 
-.. image:: https://img.shields.io/badge/python-3%2E6-blue.svg
+.. image:: https://img.shields.io/badge/python-3%2E6-green.svg
+   :target: https://github.com/akamai-threat-research/mqtt-pwn/
+
+.. image:: https://img.shields.io/badge/docker-friendly-blue.svg
    :target: https://github.com/akamai-threat-research/mqtt-pwn/
 
 MQTT is a machine-to-machine connectivity protocol designed as an extremely lightweight publish/subscribe 
