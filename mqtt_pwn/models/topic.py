@@ -1,5 +1,4 @@
 from peewee import CharField
-from mqtt_pwn import utils
 
 from .base import BaseModel
 
