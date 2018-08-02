@@ -14,7 +14,7 @@ with an easy-to-use and extensible shell-like environment.
 Authors
 -------
 
-- `Daniel Abeles <(https://twitter.com/Daniel_Abeles)>`_
+- `Daniel Abeles <https://twitter.com/Daniel_Abeles>`_
 - `Moshe Zioni <https://twitter.com/dalmoz_>`_
 
 Feature Support
