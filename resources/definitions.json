@@ -1,0 +1,102 @@
+[
+  {
+    "where": "Topic",
+    "pattern": "/openHAB/",
+    "label": "Home automation systems - OpenHAB"
+  },
+  {
+    "where": "Topic",
+    "pattern": "/HomeAssistant/",
+    "label": "Home automation systems - HomeAssistant"
+  },
+  {
+    "where": "Topic",
+    "pattern": "/Domoticz/",
+    "label": "Home automation systems - Domoticz"
+  },
+  {
+    "where": "Topic",
+    "pattern": "/HomeBridge",
+    "label": "Home automation systems - HomeBridge"
+  },
+  {
+    "where": "Topic",
+    "pattern": "/HomeSeer/",
+    "label": "Home automation systems - HomeSeer"
+  },
+  {
+    "where": "Topic",
+    "pattern": "SmartThings/",
+    "label": "Home automation systems - SmartThings"
+  },
+  {
+    "where": "Topic",
+    "pattern": "IP-Symcon/",
+    "label": "Home automation systems - IP-Symcon"
+  },
+  {
+    "where": "Topic",
+    "pattern": "SonWEB/",
+    "label": "Home automation systems - SonWEB"
+  },
+  {
+    "where": "Topic",
+    "pattern": "Yeti/",
+    "label": "Home automation systems - Yeti"
+  },
+  {
+    "where": "Topic",
+    "pattern": "NodeRed/",
+    "label": "Home automation systems - NodeRed"
+  },
+  {
+    "where": "Topic",
+    "pattern": "harmony/",
+    "label": "Home automation systems - Harmony"
+  },
+  {
+    "where": "Topic",
+    "pattern": "harmony_api/",
+    "label": "Home automation systems - Harmony (API)"
+  },
+  {
+    "where": "Topic",
+    "pattern": "iobroker/",
+    "label": "Home automation systems - ioBroker"
+  },
+  {
+    "where": "Topic",
+    "pattern": "zwave/",
+    "label": "general sensors, heat, saunas - zWave"
+  },
+  {
+    "where": "Topic",
+    "pattern": "sonoff/",
+    "label": "smart home switching - sonoff"
+  },
+  {
+    "where": "Topic",
+    "pattern": "sonoffs/",
+    "label": "smart home switching - sonoff"
+  },
+  {
+    "where": "Topic",
+    "pattern": "itead/",
+    "label": "smart home switching - sonoff"
+  },
+  {
+    "where": "Topic",
+    "pattern": "dves/",
+    "label": "smart home switching - sonoff"
+  },
+  {
+    "where": "Topic",
+    "pattern": "owntracks/",
+    "label": "gps tracking mobile sensor - OwnTracks"
+  },
+  {
+    "where": "Topic",
+    "pattern": "ABMMOISES/",
+    "label": "test23"
+  }
+]

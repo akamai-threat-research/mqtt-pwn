@@ -1,0 +1,10 @@
+# set debug true
+# set timing true
+# connect
+# scans -i 5
+# messages -l 10
+# topics -s -l 10 -r lwt
+# messages -i 70563 -j
+# topics -l 5
+
+connect -o docker.for.mac.localhost -u admin -w admin -p 1884
