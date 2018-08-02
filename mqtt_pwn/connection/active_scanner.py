@@ -47,7 +47,9 @@ class ActiveScanner(object):
     def run(self):
         """The Scanner driver function"""
 
-        self._mqtt_client.username_pw_set(self.cli.mqtt_client.username, self.cli.mqtt_client.password)
+        if self.cli.mqtt_client.username and self.cli.mqtt_client.password:
+            self._mqtt_client.username_pw_set(self.cli.mqtt_client.username, self.cli.mqtt_client.password)
+            
         self._mqtt_client.connect(self.host, self.port, self.timeout)
         self._mqtt_client.subscribe(self.topics)
 
