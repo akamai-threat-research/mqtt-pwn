@@ -6,6 +6,10 @@ MQTT-PWN
 .. |Documentation Status| image:: https://readthedocs.org/projects/ansicolortags/badge/?version=latest
    :target: http://mqtt-pwn.readthedocs.io/?badge=latest
 
+|GitHub license|
+
+.. |GitHub license| image:: https://img.shields.io/github/license/akamai-threat-research/mqtt-pwn.svg
+   :target: https://github.com/akamai-threat-research/mqtt-pwn/blob/master/LICENSE
 
 MQTT is a machine-to-machine connectivity protocol designed as an extremely lightweight publish/subscribe 
 messaging transport and widely used by millions of IoT devices worldwide. MQTT-PWN intends to be a one-stop-shop 
