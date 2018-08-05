@@ -37,6 +37,7 @@ Feature Support
 - Useful Information Grabber - obtaining and labeling data from an extensible predefined list containing known topics of interest
 - GPS tracker - plotting routes from devices using OwnTracks app and collecting published coordinates
 - Sonoff Exploiter – design to extract passwords and other sensitive information
+- Extensibility - the framework was designed to add new custom plugins with ease
 
 Documentation
 -------------
