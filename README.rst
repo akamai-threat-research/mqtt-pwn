@@ -14,7 +14,7 @@ MQTT-PWN
    :target: https://github.com/akamai-threat-research/mqtt-pwn/
 
 .. image:: https://raw.githubusercontent.com/toolswatch/badges/master/arsenal/usa/2018.svg
-    :target: https://toolswatch.org/2018/05/black-hat-arsenal-usa-2018-the-w0w-linup/
+    :target: http://www.toolswatch.org/2018/05/black-hat-arsenal-usa-2018-the-w0w-lineup/
 
 MQTT is a machine-to-machine connectivity protocol designed as an extremely lightweight publish/subscribe 
 messaging transport and widely used by millions of IoT devices worldwide. MQTT-PWN intends to be a one-stop-shop 
