@@ -42,4 +42,4 @@ Feature Support
 Documentation
 -------------
 
-Documentation is available at https://mqtt-pwn.readthedocs.io/en/latest/.
+Documentation is available at https://mqtt-pwn.readthedocs.io/.
