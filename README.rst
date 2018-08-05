@@ -13,9 +13,6 @@ MQTT-PWN
 .. image:: https://img.shields.io/badge/docker-friendly-blue.svg
    :target: https://github.com/akamai-threat-research/mqtt-pwn/
 
-.. image:: https://raw.githubusercontent.com/toolswatch/badges/master/arsenal/usa/2018.svg
-    :target: http://www.toolswatch.org/2018/05/black-hat-arsenal-usa-2018-the-w0w-lineup/
-
 MQTT is a machine-to-machine connectivity protocol designed as an extremely lightweight publish/subscribe 
 messaging transport and widely used by millions of IoT devices worldwide. MQTT-PWN intends to be a one-stop-shop 
 for IoT Broker penetration-testing and security assessment operations, as it combines enumeration, 
