@@ -4,10 +4,10 @@ import os
 DB_NAME = 'mqttpwn'
 DB_USER = 'postgres'
 DB_PASSWORD = '7BYGQMWvzwBDCpJebPAbBkbQaaxXZKVHm7jc7rWFEaHtCPU4KEXmytiFBjK3f6oP'
-DB_HOST = 'db'
-DB_PORT = 5432
+DB_HOST = os.getenv('MQTTPWN_DB_HOST', 'db')
+DB_PORT = os.getenv('MQTTPWN_DB_PORT', 5432)
 
-BASE_PATH = os.getenv('MQTTPWN_BASE_PATH', '/Users/dabeles/Google Drive/mqtt_pwn_v2/')
+BASE_PATH = os.getenv('MQTTPWN_BASE_PATH', '/Users/dabeles/Documents/Code/Python/mqtt-pwn/')
 
 # Word lists
 DEFAULT_USERNAME_LIST = BASE_PATH + 'resources/wordlists/usernames.txt'
@@ -25,3 +25,4 @@ C2_BASE_TOPIC = '$SYS/test123'
 # Other
 DEFINITIONS_PATH = BASE_PATH + 'resources/definitions.json'
 STARTUP_SCRIPT = BASE_PATH + 'resources/shell_startup.rc'
+SHODAN_API_KEY = os.getenv('MQTTPWN_SHODAN_API_KEY', None)
