@@ -38,6 +38,7 @@ Feature Support
 - GPS tracker - plotting routes from devices using OwnTracks app and collecting published coordinates
 - Sonoff Exploiter – design to extract passwords and other sensitive information
 - Extensibility - the framework was designed to add new custom plugins with ease
+- Shodan - search through `Shodan.io` API for available vulnerable MQTT brokers
 
 Documentation
 -------------

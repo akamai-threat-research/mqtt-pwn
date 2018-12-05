@@ -29,6 +29,14 @@ class Message(BaseModel):
 
         return [self.id, self.topic.name, self.short_body, self.topic.label]
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'topic': self.topic.name,
+            'message': self.short_body,
+            'label': self.topic.label
+        }
+
     def __repr__(self):
         """A proper representation of the class instance"""
 

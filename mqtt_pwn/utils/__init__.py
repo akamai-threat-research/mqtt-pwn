@@ -4,8 +4,12 @@ from datetime import datetime
 from blessings import Terminal
 from threading import Thread
 import os
+import csv
 
 from pygments import highlight, lexers, formatters
+from mqtt_pwn.config import SHODAN_API_KEY
+from prettytable import PrettyTable
+
 
 t: Terminal = Terminal()
 
@@ -114,6 +118,19 @@ def scan_required(func):
     return _scan_required
 
 
+def shodan_key_required(func):
+    """A decorator that enforces the Shodan API key to exist"""
+
+    def _shodan_key_required(*args, **kwargs):
+        self = args[0]
+
+        if not SHODAN_API_KEY:
+            self.print_error(f'Shodan API key missing! Please fill in in the config file.')
+        else:
+            return func(*args, **kwargs)
+    return _shodan_key_required
+
+
 def drop_none(lst):
     return [x for x in lst if x]
 
@@ -131,3 +148,24 @@ def prettify_json(some_text):
             formatters.TerminalFormatter())
     except:
         return some_text
+
+
+def export_to_csv(headers, data, filename='results.csv'):
+    with open(filename, mode='w') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=headers)
+
+        writer.writeheader()
+        writer.writerows(data)
+
+
+def export_table(table: PrettyTable):
+    with open('shodan.txt', 'w') as f:
+        f.write(table.get_string())
+
+
+def import_shodan_table():
+    try:
+        with open('shodan.txt', 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        return None

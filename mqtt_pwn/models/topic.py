@@ -21,6 +21,13 @@ class Topic(BaseModel):
 
         return Topic.label != '' or Topic.label is not None
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'topic': self.name,
+            'label': self.label
+        }
+
     def __repr__(self):
         """A proper representation of the class instance"""
 
