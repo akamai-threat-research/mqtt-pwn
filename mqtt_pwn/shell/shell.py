@@ -6,6 +6,7 @@ from mqtt_pwn.shell.mixins.commands import CommandsMixin
 from mqtt_pwn.shell.mixins.connect import ConnectMixin
 from mqtt_pwn.shell.mixins.discover import DiscoveryMixin
 from mqtt_pwn.shell.mixins.messages import MessagesMixin
+from mqtt_pwn.shell.mixins.shodan import ShodanMixin
 from mqtt_pwn.shell.mixins.sonoff import SonoffMixin
 from mqtt_pwn.shell.mixins.victims import VictimsMixin
 from mqtt_pwn.shell.mixins.execute import ExecuteMixin
@@ -28,7 +29,8 @@ _mixins = [
     OwnTracksMixin,
     SonoffMixin,
     BruteforceMixin,
-    MessagesMixin
+    MessagesMixin,
+    ShodanMixin
 ]
 
 

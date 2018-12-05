@@ -10,13 +10,15 @@ from mqtt_pwn.models.topic import Topic
 from mqtt_pwn.models.message import Message
 from mqtt_pwn.models.scan import Scan
 from mqtt_pwn.shell.base import BaseMixin
-from mqtt_pwn.utils import scan_required, prettify_json
+from mqtt_pwn.utils import scan_required, prettify_json, export_to_csv
 
 
 class MessagesMixin(BaseMixin):
     """Messages Mixin Class"""
 
     messages_parser = argparse.ArgumentParser(description="List Messages that were detected through discovery scans")
+
+    messages_parser.add_argument('-e', '--export', help='export the search results', action="store_true")
 
     single_message_group = messages_parser.add_argument_group(description="Single Message Arguments")
     multi_message_group = messages_parser.add_argument_group(description="Multi Message Arguments")
@@ -58,12 +60,12 @@ class MessagesMixin(BaseMixin):
 
         # First Group (Single Message)
         if args.index:
-            self._show_specific_message(args.index, is_json_prettify=args.json_prettify)
+            self._show_specific_message(args.index, is_json_prettify=args.json_prettify, export=args.export)
 
         # Second Group (Multi Message)
         else:
             msgs = self._get_messages(args)
-            self._create_messages_table(msgs)
+            self._create_messages_table(msgs, export=args.export)
 
     def _validate_messages_parser_args(self, args):
         """Checks whether the arguments passed are valid"""
@@ -113,17 +115,30 @@ class MessagesMixin(BaseMixin):
             limit=args.limit
         )
 
-    def _show_specific_message(self, index, is_json_prettify=False):
+    def _show_specific_message(self, index, is_json_prettify=False, export=False):
         """Shows a specific message to the client"""
 
         m = Message.get_by_id(index)
         body = prettify_json(m.body) if is_json_prettify else m.body
-
-        self.print_pairs(f'Message #{index}:', {
+        data = {
             'Topic': m.topic.name,
             'Timestamp': m.ts,
             'Body': body
-        })
+        }
+
+        if export:
+            export_to_csv(headers=['index', 'topic', 'timestamp', 'body'],
+                          data=[
+                              {
+                                  'index': index,
+                                  'topic': m.topic.name,
+                                  'timestamp': m.ts,
+                                  'body': body
+                              }
+                          ])
+            self.print_info(f'Wrote 1 line to "results.csv".')
+        else:
+            self.print_pairs(f'Message #{index}:', data)
 
     # noinspection PyUnresolvedReferences
     def _generic_fetch_messages(self, conditions, limit=None):
@@ -136,9 +151,10 @@ class MessagesMixin(BaseMixin):
             .where(conditions) \
             .limit(limit)
 
-    def _create_messages_table(self, messages):
+    def _create_messages_table(self, messages, export=False):
         """Creates the messages table """
 
+        msgs = []
         msgs_table = PrettyTable(field_names=[
             'ID', 'Topic', 'Message', 'Label'
         ])
@@ -153,5 +169,10 @@ class MessagesMixin(BaseMixin):
 
         for msg in messages:
             msgs_table.add_row(msg.to_list())
+            msgs.append(msg.to_dict())
 
-        self.ppaged(msg=str(msgs_table))
+        if export:
+            export_to_csv(headers=['id', 'topic', 'message', 'label'], data=msgs)
+            self.print_info(f'Wrote {len(msgs)} {"line" if len(msgs) == 1 else "lines"} to "results.csv".')
+        else:
+            self.ppaged(msg=str(msgs_table))

@@ -8,13 +8,14 @@ from functools import reduce
 from mqtt_pwn.models.topic import Topic
 from mqtt_pwn.models.message import Message
 from mqtt_pwn.shell.base import BaseMixin
-from mqtt_pwn.utils import scan_required
+from mqtt_pwn.utils import scan_required, export_to_csv
 
 
 class TopicsMixin(BaseMixin):
     """Topics Mixin Class"""
 
     topics_parser = argparse.ArgumentParser(description="List topics that were detected through discovery scans")
+    topics_parser.add_argument('-e', '--export', help='export the search results', action="store_true")
     topics_parser.add_argument('-s', '--show-only-labeled',
                                help='show only labeled topics',
                                action="store_true")
@@ -42,7 +43,12 @@ class TopicsMixin(BaseMixin):
             return
 
         topics = self._get_topics(args)
-        self._create_topics_table(topics)
+
+        if args.export:
+            export_to_csv(headers=['id', 'topic', 'label'], data=[t.to_dict() for t in topics])
+            self.print_info(f'Wrote {len(topics)} {"line" if len(topics) == 1 else "lines"} to "results.csv".')
+        else:
+            self._create_topics_table(topics)
 
     def _validate_topics_parser_args(self, args):
         """Checks whether the arguments are valid"""
