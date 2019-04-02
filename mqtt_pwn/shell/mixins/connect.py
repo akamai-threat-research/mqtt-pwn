@@ -20,9 +20,17 @@ class ConnectMixin(BaseMixin):
 
     connect_parser.add_argument('-o', '--host', help='host to connect to', default=DEFAULT_BROKER_HOST)
     connect_parser.add_argument('-p', '--port', help='port to use', type=int, default=DEFAULT_BROKER_PORT)
-    connect_parser.add_argument('-u', '--username', help='username to authenticate with', default=DEFAULT_BROKER_USERNAME)
-    connect_parser.add_argument('-w', '--password', help='password to authenticate with', default=DEFAULT_BROKER_PASSWORD)
     connect_parser.add_argument('-t', '--timeout', help='connection timeout', type=int, default=60)
+
+    connection_parser = connect_parser.add_subparsers(help='Connection type command', dest='connect_type')
+    userpass_parser = connection_parser.add_parser('USERPASS')
+    userpass_parser.add_argument('-u', '--username', help='username to authenticate with', default=DEFAULT_BROKER_USERNAME)
+    userpass_parser.add_argument('-w', '--password', help='password to authenticate with', default=DEFAULT_BROKER_PASSWORD)
+    clientcert_parser = connection_parser.add_parser('CLIENTCERT')
+    clientcert_parser.add_argument('--ca-cert', help='path to server CA certificate')
+    clientcert_parser.add_argument('--crt', help='path to client certificate')
+    clientcert_parser.add_argument('--pkey', help='path to client private key file')
+    
 
     @with_category(BaseMixin.CMD_CAT_BROKER_OP)
     @with_argparser(connect_parser)
@@ -50,13 +58,26 @@ class ConnectMixin(BaseMixin):
         self.print_info('Connecting...')
 
         try:
-            self.mqtt_client = MqttClient(
-                host=args.host,
-                port=args.port,
-                timeout=args.timeout,
-                username=args.username,
-                password=args.password,
-                cli=self)
+
+            if args.connect_type == 'USERPASS':
+                self.mqtt_client = MqttClient.from_user_password(
+                    host=args.host,
+                    port=args.port,
+                    timeout=args.timeout,
+                    username=args.username,
+                    password=args.password,
+                    cli=self
+                )
+            elif  args.connect_type == 'CLIENTCERT':
+                self.mqtt_client = MqttClient.from_client_cert(
+                    host=args.host,
+                    port=args.port,
+                    timeout=args.timeout,
+                    ca_cert=args.ca_cert,
+                    client_cert=args.crt,
+                    client_private_key=args.pkey,
+                    cli=self
+                )
 
             self.mqtt_client.run()
         except KeyboardInterrupt:
