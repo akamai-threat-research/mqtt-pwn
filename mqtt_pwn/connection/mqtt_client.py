@@ -13,7 +13,7 @@ class MqttClient(object):
     """ Represents a MQTT Client connection handler class"""
 
     def __init__(self, client_id=None, host=DEFAULT_BROKER_HOST, port=DEFAULT_BROKER_PORT, timeout=60, cli=None,
-                 username=DEFAULT_BROKER_USERNAME, password=DEFAULT_BROKER_PASSWORD, ca_cert=None, client_cert=None, client_private_key=None):
+                 username=DEFAULT_BROKER_USERNAME, password=DEFAULT_BROKER_PASSWORD):
         """The class initializer"""
 
         self._mqtt_client = mqtt.Client(client_id)
@@ -23,9 +23,6 @@ class MqttClient(object):
         self.port = port
         self.timeout = timeout
         self.cli = cli
-        self.ca_cert=ca_cert
-        self.client_cert=client_cert
-        self.client_private_key=client_private_key
 
         self.system_info = SystemInfo()
 
@@ -41,14 +38,6 @@ class MqttClient(object):
         self.input_topic_fmt = self._base_topic + '/input/{uuid}'
         self._mqtt_client.on_message = self.mqtt_on_message
         self._mqtt_client.on_connect = self.mqtt_on_connect
-
-    @classmethod
-    def from_user_password(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
-
-    @classmethod
-    def from_client_cert(cls, *args, **kwargs):
-        return cls(*args, **kwargs)
 
     def publish(self, topic, payload):
         """Publishes a message to a victim"""
@@ -111,13 +100,8 @@ class MqttClient(object):
     def run(self):
         """Run the MQTT client"""
 
-        # username + password authentication
         if self.username and self.password: 
             self._mqtt_client.username_pw_set(self.username, self.password)
-
-        # client cert authentication:
-        if self.ca_cert and self.client_private_key and self.client_cert:
-            self._mqtt_client.tls_set(ca_certs=self.ca_cert, certfile=self.client_cert, keyfile=self.client_private_key)
 
         self._mqtt_client.connect(self.host, self.port, self.timeout)
         self._mqtt_client.subscribe(self._subscription_topics)
