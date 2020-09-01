@@ -27,6 +27,7 @@ Pygments==2.2.0
 PyMySQL==0.8.1
 pyparsing==2.2.0
 pyperclip==1.6.0
+pysqlcipher3==1.0.3
 pytz==2018.4
 requests==2.20.0
 shodan==1.10.4
