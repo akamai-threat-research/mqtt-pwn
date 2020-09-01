@@ -13,7 +13,7 @@ colorama==0.4.0
 docutils==0.14
 future==0.16.0
 idna==2.6
-idna-ssl==1.0.1
+idna-ssl==1.1.0
 imagesize==1.0.0
 Jinja2==2.10
 MarkupSafe==1.0
