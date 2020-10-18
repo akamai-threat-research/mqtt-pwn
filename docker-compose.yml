@@ -17,7 +17,7 @@ services:
       PYTHONUNBUFFERED: 1
       MQTTPWN_BASE_PATH: '/mqtt_pwn/'
       TERM: xterm-256color
-    entrypoint: python /mqtt_pwn/run.py
+    entrypoint: python3 /mqtt_pwn/run.py
     stdin_open: true
     volumes:
       - '.:/mqtt_pwn'
