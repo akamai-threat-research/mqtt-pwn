@@ -15,7 +15,7 @@ future==0.16.0
 idna==2.6
 idna-ssl==1.0.1
 imagesize==1.0.0
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.0
 multidict==4.3.1
 packaging==17.1
