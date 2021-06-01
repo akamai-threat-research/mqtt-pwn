@@ -34,7 +34,7 @@ six==1.11.0
 snowballstemmer==1.2.1
 Sphinx==1.7.4
 sphinxcontrib-websupport==1.0.1
-urllib3==1.24.2
+urllib3==1.26.5
 wcwidth==0.1.7
 XlsxWriter==1.1.2
 yarl==1.2.4
