@@ -2,7 +2,7 @@ aiohttp==3.2.1
 alabaster==0.7.10
 async-timeout==3.0.0
 attrs==18.1.0
-Babel==2.5.3
+Babel==2.9.1
 blessings==1.6.1
 certifi==2018.4.16
 chardet==3.0.4
