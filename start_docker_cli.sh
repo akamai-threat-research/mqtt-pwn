@@ -1,3 +1,6 @@
+export LD_LIBRARY_PATH=/usr/local/lib
+export CLOUDSDK_PYTHON=/usr/bin/python3
+
 echo "running mqtt-pwn cli..."
 
 if [[ $(docker-compose ps | grep "mqtt-pwn_db_1") ]]; then
