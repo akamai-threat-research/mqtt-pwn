@@ -4,7 +4,7 @@ import argparse
 from mqtt_pwn.shell.base import BaseMixin
 from mqtt_pwn.connection.mqtt_client import MqttClient
 from mqtt_pwn.utils import connection_required
-from mqtt_pwn.config import DEFAULT_BROKER_HOST, DEFAULT_BROKER_PORT, DEFAULT_BROKER_USERNAME, DEFAULT_BROKER_PASSWORD
+from mqtt_pwn.config import DEFAULT_BROKER_HOST, DEFAULT_BROKER_PORT, DEFAULT_BROKER_USERNAME, DEFAULT_BROKER_PASSWORD, DEFAULT_BROKER_CLIENTID
 
 
 class ConnectMixin(BaseMixin):
@@ -25,6 +25,7 @@ class ConnectMixin(BaseMixin):
     connect_parser.add_argument('-w', '--password', help='password to authenticate with',
                                 default=DEFAULT_BROKER_PASSWORD)
     connect_parser.add_argument('-t', '--timeout', help='connection timeout', type=int, default=60)
+    connect_parser.add_argument('-c', '--clientid', help='client id', default=DEFAULT_BROKER_CLIENTID)
 
     @with_category(BaseMixin.CMD_CAT_BROKER_OP)
     @with_argparser(connect_parser)
@@ -55,6 +56,7 @@ class ConnectMixin(BaseMixin):
             self.mqtt_client = MqttClient(
                 host=args.host,
                 port=args.port,
+                client_id=args.clientid,
                 timeout=args.timeout,
                 username=args.username,
                 password=args.password,

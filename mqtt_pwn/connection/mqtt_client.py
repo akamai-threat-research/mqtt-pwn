@@ -2,7 +2,7 @@ from paho.mqtt import client as mqtt
 
 from mqtt_pwn import utils
 from mqtt_pwn.config import DEFAULT_BROKER_HOST, DEFAULT_BROKER_PORT, DEFAULT_BROKER_USERNAME, DEFAULT_BROKER_PASSWORD, \
-    C2_BASE_TOPIC
+    C2_BASE_TOPIC, DEFAULT_BROKER_CLIENTID
 from mqtt_pwn.models.victim import Victim
 from mqtt_pwn.models.command import Command
 from mqtt_pwn.connection.system_info import SystemInfo
@@ -12,7 +12,7 @@ from mqtt_pwn.utils import new_victim_notification
 class MqttClient(object):
     """ Represents a MQTT Client connection handler class"""
 
-    def __init__(self, client_id=None, host=DEFAULT_BROKER_HOST, port=DEFAULT_BROKER_PORT, timeout=60, cli=None,
+    def __init__(self, client_id=DEFAULT_BROKER_CLIENTID, host=DEFAULT_BROKER_HOST, port=DEFAULT_BROKER_PORT, timeout=60, cli=None,
                  username=DEFAULT_BROKER_USERNAME, password=DEFAULT_BROKER_PASSWORD):
         """The class initializer"""
 
